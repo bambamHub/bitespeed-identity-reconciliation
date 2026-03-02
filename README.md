@@ -83,6 +83,7 @@ Status should be:
 ```
 
 📸 Demo API Checking on Postman – All Edge Cases
+
 1️⃣ New Customer (No Existing Contact)
 <p align="center"> <img src="https://github.com/user-attachments/assets/6243ad78-c3b3-4cc1-b89e-cd1b62d34f13" width="800"> </p>
 
