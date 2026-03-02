@@ -43,6 +43,46 @@ POST -> https://bitespeed-identity-reconciliation-dv9a.onrender.com/identify
 ```
 
 ```
+🧪 Test Directly in Postman (Using Live Render URL)
+✅ Step-by-Step Postman Test
+
+Open Postman
+
+Select POST method
+
+Paste this URL:
+
+https://bitespeed-identity-reconciliation-dv9a.onrender.com/identify
+
+Go to Body → raw → JSON
+
+Paste:
+
+{
+  "email": "postman@test.com",
+  "phoneNumber": "888888"
+}
+
+Click Send
+
+You should receive:
+
+{
+  "contact": {
+    "primaryContactId": 1,
+    "emails": ["postman@test.com"],
+    "phoneNumbers": ["888888"],
+    "secondaryContactIds": []
+  }
+}
+
+Status should be:
+
+200 OK
+
+```
+
+```
 📡 API Specification
 Endpoint
 POST /identify
