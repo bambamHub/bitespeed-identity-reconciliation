@@ -21,18 +21,24 @@ It consolidates multiple contact records belonging to the same customer based on
 
 ✅ Clean MVC architecture
 
+`
 🛠 Tech Stack
 Layer	Technology
 Backend	Node.js + Express
 Language	TypeScript
 ORM	Prisma
 Database	PostgreSQL (Neon)
+
+`
+
+`
 Deployment	Render
 🌐 Live API
 POST https://YOUR_RENDER_URL/identify
 
-Replace YOUR_RENDER_URL with your deployed Render service URL.
+`
 
+`
 📡 API Specification
 Endpoint
 POST /identify
@@ -42,7 +48,9 @@ POST /identify
   "phoneNumber": "string (optional)"
 }
 
+
 ⚠️ At least one of email or phoneNumber must be provided.
+
 
 📤 Response Format
 {
@@ -63,47 +71,67 @@ All values are unique
 
 Only secondary IDs appear in secondaryContactIds
 
+`
+
 🧪 Curl Test Examples
+`
 1️⃣ New Customer
 curl -X POST https://YOUR_RENDER_URL/identify \
 -H "Content-Type: application/json" \
 -d '{"email":"doc@hillvalley.edu","phoneNumber":"123456"}'
+`
 
 ✔ Creates new primary contact
 ✔ secondaryContactIds = []
 
+``
 2️⃣ Same Phone, New Email
+
 curl -X POST https://YOUR_RENDER_URL/identify \
 -H "Content-Type: application/json" \
 -d '{"email":"mcfly@hillvalley.edu","phoneNumber":"123456"}'
 
+``
+
+
+
 ✔ Creates secondary contact
 ✔ Links to existing primary
 
+`
 3️⃣ Same Email, New Phone
 curl -X POST https://YOUR_RENDER_URL/identify \
 -H "Content-Type: application/json" \
 -d '{"email":"doc@hillvalley.edu","phoneNumber":"999999"}'
 
+`
+
 ✔ Creates secondary contact
 ✔ Phone list updated
 
+`
 4️⃣ Only Phone Provided
 curl -X POST https://YOUR_RENDER_URL/identify \
 -H "Content-Type: application/json" \
 -d '{"phoneNumber":"123456"}'
 
+`
+
 ✔ Returns consolidated identity
 ✔ No new record created
 
+`
 5️⃣ Only Email Provided
 curl -X POST https://YOUR_RENDER_URL/identify \
 -H "Content-Type: application/json" \
 -d '{"email":"doc@hillvalley.edu"}'
 
+`
+
 ✔ Returns consolidated identity
 ✔ No new record created
 
+`
 🧠 Edge Case Handling
 🔹 1. No Existing Contact
 
@@ -159,6 +187,9 @@ Emails and phones are always unique.
 
 Primary email & phone always appear first.
 
+`
+
+```
 🏗 Architecture
 Route → Controller → Service → Prisma → Database
 
@@ -181,6 +212,10 @@ Database maintains relational integrity
   updatedAt: DateTime
   deletedAt: DateTime?
 }
+
+```
+
+```
 🚀 Deployment
 
 Hosted on Render
@@ -190,6 +225,10 @@ Database hosted on Neon
 Environment variables securely configured
 
 Public API endpoint accessible
+
+```
+
+```
 
 ✅ Submission Checklist
 
@@ -206,6 +245,9 @@ Public API endpoint accessible
 ✔ JSON body used (not form-data)
 
 ✔ All edge cases tested
+
+```
+
 
 👨‍💻 Author
 
