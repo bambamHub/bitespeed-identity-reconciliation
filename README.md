@@ -3,9 +3,11 @@
 <p align="center"> <b>A production-ready backend service to intelligently link customer identities across multiple purchases.</b> </p>
 📌 Overview
 
+```
 This service implements the Identity Reconciliation logic required by Bitespeed.
 
 It consolidates multiple contact records belonging to the same customer based on shared email or phone number, ensuring a single unified identity view.
+```
 
 ✨ System Guarantees
 ```
@@ -252,6 +254,8 @@ Public API endpoint accessible
 
 
 👨‍💻 Author
-
+```
 Bambam Kumar Gupta
+
 Motilal Nehru National Institute of Technology Allahabad
+```
