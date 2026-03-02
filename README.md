@@ -82,42 +82,6 @@ Status should be:
 
 ```
 
-```
-📡 API Specification
-Endpoint
-POST /identify
-📥 Request Body (JSON)
-{
-  "email": "string (optional)",
-  "phoneNumber": "string (optional)"
-}
-
-
-⚠️ At least one of email or phoneNumber must be provided.
-
-
-📤 Response Format
-{
-  "contact": {
-    "primaryContactId": number,
-    "emails": string[],
-    "phoneNumbers": string[],
-    "secondaryContactIds": number[]
-  }
-}
-🔒 Response Guarantees
-
-Primary email always appears first
-
-Primary phone number always appears first
-
-All values are unique
-
-Only secondary IDs appear in secondaryContactIds
-```
-
-👇
-
 📸 Demo API Checking on Postman – All Edge Cases
 1️⃣ New Customer (No Existing Contact)
 <p align="center"> <img src="https://github.com/user-attachments/assets/6243ad78-c3b3-4cc1-b89e-cd1b62d34f13" width="800"> </p>
@@ -158,6 +122,41 @@ Step 3 – Linking Request
 
 1️⃣1️⃣ Completely New Email Only
 <p align="center"> <img src="https://github.com/user-attachments/assets/19ceef56-7908-4b5e-9f49-5958df2abaaa" width="800"> </p>
+
+
+```
+📡 API Specification
+Endpoint
+POST /identify
+📥 Request Body (JSON)
+{
+  "email": "string (optional)",
+  "phoneNumber": "string (optional)"
+}
+
+
+⚠️ At least one of email or phoneNumber must be provided.
+
+
+📤 Response Format
+{
+  "contact": {
+    "primaryContactId": number,
+    "emails": string[],
+    "phoneNumbers": string[],
+    "secondaryContactIds": number[]
+  }
+}
+🔒 Response Guarantees
+
+Primary email always appears first
+
+Primary phone number always appears first
+
+All values are unique
+
+Only secondary IDs appear in secondaryContactIds
+```
 
 
 ```
