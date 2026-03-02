@@ -38,7 +38,7 @@ Database	PostgreSQL (Neon)
 ```
 Deployment	Render
 🌐 Live API
-POST https://YOUR_RENDER_URL/identify
+POST -> https://bitespeed-identity-reconciliation-dv9a.onrender.com/identify
 
 ```
 
@@ -80,7 +80,7 @@ Only secondary IDs appear in secondaryContactIds
 🧪 Curl Test Examples
 ```
 1️⃣ New Customer
-curl -X POST https://YOUR_RENDER_URL/identify \
+curl -X POST https://bitespeed-identity-reconciliation-dv9a.onrender.com/identify \
 -H "Content-Type: application/json" \
 -d '{"email":"doc@hillvalley.edu","phoneNumber":"123456"}'
 `
@@ -91,7 +91,7 @@ curl -X POST https://YOUR_RENDER_URL/identify \
 ``
 2️⃣ Same Phone, New Email
 
-curl -X POST https://YOUR_RENDER_URL/identify \
+curl -X POST https://bitespeed-identity-reconciliation-dv9a.onrender.com/identify \
 -H "Content-Type: application/json" \
 -d '{"email":"mcfly@hillvalley.edu","phoneNumber":"123456"}'
 
@@ -104,7 +104,7 @@ curl -X POST https://YOUR_RENDER_URL/identify \
 
 `
 3️⃣ Same Email, New Phone
-curl -X POST https://YOUR_RENDER_URL/identify \
+curl -X POST https://bitespeed-identity-reconciliation-dv9a.onrender.com/identify \
 -H "Content-Type: application/json" \
 -d '{"email":"doc@hillvalley.edu","phoneNumber":"999999"}'
 
@@ -115,7 +115,7 @@ curl -X POST https://YOUR_RENDER_URL/identify \
 
 `
 4️⃣ Only Phone Provided
-curl -X POST https://YOUR_RENDER_URL/identify \
+curl -X POST https://bitespeed-identity-reconciliation-dv9a.onrender.com/identify \
 -H "Content-Type: application/json" \
 -d '{"phoneNumber":"123456"}'
 
@@ -126,7 +126,7 @@ curl -X POST https://YOUR_RENDER_URL/identify \
 
 `
 5️⃣ Only Email Provided
-curl -X POST https://YOUR_RENDER_URL/identify \
+curl -X POST https://bitespeed-identity-reconciliation-dv9a.onrender.com/identify \
 -H "Content-Type: application/json" \
 -d '{"email":"doc@hillvalley.edu"}'
 
