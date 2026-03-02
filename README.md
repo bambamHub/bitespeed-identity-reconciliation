@@ -1,14 +1,17 @@
-🚀 Bitespeed Backend Task – Identity Reconciliation
+🚀 Bitespeed Backend Task
+🔗 Identity Reconciliation Service
+<p align="center"> <b>A production-ready backend service to intelligently link customer identities across multiple purchases.</b> </p>
+📌 Overview
 
-This service implements the identity reconciliation logic required by Bitespeed.
+This service implements the Identity Reconciliation logic required by Bitespeed.
 
-It links multiple contact records belonging to the same customer based on shared email or phone number, and returns a consolidated identity response.
+It consolidates multiple contact records belonging to the same customer based on shared email or phone number, ensuring a single unified identity view.
 
-The system ensures:
+✨ System Guarantees
 
-✅ Oldest contact always remains primary
+✅ Oldest contact always remains Primary
 
-✅ Secondary contacts are correctly linked
+✅ Secondary contacts are properly linked
 
 ✅ No duplicate emails or phone numbers in response
 
@@ -16,26 +19,22 @@ The system ensures:
 
 ✅ Atomic database operations using transactions
 
+✅ Clean MVC architecture
+
 🛠 Tech Stack
-
-Node.js
-
-TypeScript
-
-Express
-
-PostgreSQL (Neon)
-
-Prisma ORM
-
-Render (Deployment)
-
-🌐 Live Endpoint
+Layer	Technology
+Backend	Node.js + Express
+Language	TypeScript
+ORM	Prisma
+Database	PostgreSQL (Neon)
+Deployment	Render
+🌐 Live API
 POST https://YOUR_RENDER_URL/identify
 
 Replace YOUR_RENDER_URL with your deployed Render service URL.
 
-📌 API Endpoint
+📡 API Specification
+Endpoint
 POST /identify
 📥 Request Body (JSON)
 {
@@ -54,15 +53,15 @@ POST /identify
     "secondaryContactIds": number[]
   }
 }
-Response Guarantees
+🔒 Response Guarantees
 
-First email is always the primary contact’s email
+Primary email always appears first
 
-First phone number is always the primary contact’s phone
+Primary phone number always appears first
 
-All arrays contain unique values
+All values are unique
 
-Only secondary contacts appear in secondaryContactIds
+Only secondary IDs appear in secondaryContactIds
 
 🧪 Curl Test Examples
 1️⃣ New Customer
@@ -70,159 +69,106 @@ curl -X POST https://YOUR_RENDER_URL/identify \
 -H "Content-Type: application/json" \
 -d '{"email":"doc@hillvalley.edu","phoneNumber":"123456"}'
 
-Expected:
-
-Creates new primary contact
-
-secondaryContactIds = []
+✔ Creates new primary contact
+✔ secondaryContactIds = []
 
 2️⃣ Same Phone, New Email
 curl -X POST https://YOUR_RENDER_URL/identify \
 -H "Content-Type: application/json" \
 -d '{"email":"mcfly@hillvalley.edu","phoneNumber":"123456"}'
 
-Expected:
-
-Creates secondary contact
-
-Links to existing primary
+✔ Creates secondary contact
+✔ Links to existing primary
 
 3️⃣ Same Email, New Phone
 curl -X POST https://YOUR_RENDER_URL/identify \
 -H "Content-Type: application/json" \
 -d '{"email":"doc@hillvalley.edu","phoneNumber":"999999"}'
 
-Expected:
-
-Creates secondary contact
-
-Phone list updated
+✔ Creates secondary contact
+✔ Phone list updated
 
 4️⃣ Only Phone Provided
 curl -X POST https://YOUR_RENDER_URL/identify \
 -H "Content-Type: application/json" \
 -d '{"phoneNumber":"123456"}'
 
-Expected:
-
-Returns consolidated identity
-
-No new record created
+✔ Returns consolidated identity
+✔ No new record created
 
 5️⃣ Only Email Provided
 curl -X POST https://YOUR_RENDER_URL/identify \
 -H "Content-Type: application/json" \
 -d '{"email":"doc@hillvalley.edu"}'
 
-Expected:
+✔ Returns consolidated identity
+✔ No new record created
 
-Returns consolidated identity
+🧠 Edge Case Handling
+🔹 1. No Existing Contact
 
-No new record created
+Creates new primary contact.
 
-🧠 Edge Case Handling (Complete Validation Matrix)
-1. No Existing Contact
+🔹 2. Same Exact Data Again
 
-If neither email nor phone exists:
+No duplicate record created.
 
-New contact created
+🔹 3. Same Phone + New Email
 
-linkPrecedence = "primary"
+Creates secondary linked to primary.
 
-secondaryContactIds = []
+🔹 4. Same Email + New Phone
 
-2. Same Exact Data Sent Again
+Creates secondary linked to primary.
 
-If both email and phone already exist:
+🔹 5. Multiple Secondary Contacts
 
-No new record created
+All linked to same primary. Unique response values.
 
-Existing primary returned
+🔹 6. Merge Two Existing Primaries (Critical Case)
 
-No duplicates in response
+If:
 
-3. Same Phone, New Email
+Email matches one primary
 
-Secondary contact created
+Phone matches another
 
-Linked to oldest primary
+Then:
 
-Email list updated
+Oldest remains primary
 
-4. Same Email, New Phone
-
-Secondary contact created
-
-Linked to oldest primary
-
-Phone list updated
-
-5. Multiple Secondary Contacts
-
-All linked to same primary
-
-Unique emails and phones returned
-
-Primary values appear first
-
-6. Merge Two Existing Primaries (Critical Case)
-
-If email matches one primary and phone matches another:
-
-Oldest contact remains primary
-
-Newer primary converted to secondary
+Newer primary becomes secondary
 
 linkedId updated
 
-Full consolidated identity returned
+Full identity consolidated
 
-7. Email Null, Phone Provided
-{
-  "email": null,
-  "phoneNumber": "123456"
-}
+🔹 7. Email Null, Phone Provided
 
-✔ Works correctly
+Handled correctly.
 
-8. Phone Null, Email Provided
-{
-  "email": "doc@hillvalley.edu",
-  "phoneNumber": null
-}
+🔹 8. Phone Null, Email Provided
 
-✔ Works correctly
+Handled correctly.
 
-9. Duplicate Prevention
+🔹 9. Duplicate Prevention
 
-After multiple merges:
+Emails and phones are always unique.
 
-No duplicate emails
+🔹 10. Order Guarantee
 
-No duplicate phone numbers
-
-No duplicate secondary IDs
-
-10. Order Guarantee
-
-Primary contact ID always correct
-
-Primary email always first
-
-Primary phone always first
-
-Secondary IDs only include secondary contacts
+Primary email & phone always appear first.
 
 🏗 Architecture
 Route → Controller → Service → Prisma → Database
 
-Controller handles validation and response
+Controller handles validation & response
 
 Service layer contains reconciliation logic
 
-Prisma transactions ensure atomicity
+Prisma transaction ensures atomicity
 
-Database maintains relational consistency
+Database maintains relational integrity
 
 🗄 Database Schema
 {
@@ -239,7 +185,7 @@ Database maintains relational consistency
 
 Hosted on Render
 
-PostgreSQL hosted on Neon
+Database hosted on Neon
 
 Environment variables securely configured
 
@@ -247,19 +193,19 @@ Public API endpoint accessible
 
 ✅ Submission Checklist
 
- Public GitHub repository
+✔ Public GitHub repository
 
- Clean commit history
+✔ Clean commit history
 
- /identify endpoint exposed
+✔ /identify endpoint exposed
 
- Hosted on Render
+✔ Hosted on Render
 
- Live endpoint added to README
+✔ Live endpoint added to README
 
- Uses JSON body (not form-data)
+✔ JSON body used (not form-data)
 
- All edge cases tested
+✔ All edge cases tested
 
 👨‍💻 Author
 
