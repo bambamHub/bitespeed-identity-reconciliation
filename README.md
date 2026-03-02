@@ -8,7 +8,7 @@ This service implements the Identity Reconciliation logic required by Bitespeed.
 It consolidates multiple contact records belonging to the same customer based on shared email or phone number, ensuring a single unified identity view.
 
 ✨ System Guarantees
-
+```
 ✅ Oldest contact always remains Primary
 
 ✅ Secondary contacts are properly linked
@@ -21,7 +21,9 @@ It consolidates multiple contact records belonging to the same customer based on
 
 ✅ Clean MVC architecture
 
-`
+```
+
+```
 🛠 Tech Stack
 Layer	Technology
 Backend	Node.js + Express
@@ -29,16 +31,16 @@ Language	TypeScript
 ORM	Prisma
 Database	PostgreSQL (Neon)
 
-`
+```
 
-`
+```
 Deployment	Render
 🌐 Live API
 POST https://YOUR_RENDER_URL/identify
 
-`
+```
 
-`
+```
 📡 API Specification
 Endpoint
 POST /identify
@@ -71,10 +73,10 @@ All values are unique
 
 Only secondary IDs appear in secondaryContactIds
 
-`
+```
 
 🧪 Curl Test Examples
-`
+```
 1️⃣ New Customer
 curl -X POST https://YOUR_RENDER_URL/identify \
 -H "Content-Type: application/json" \
@@ -187,7 +189,7 @@ Emails and phones are always unique.
 
 Primary email & phone always appear first.
 
-`
+```
 
 ```
 🏗 Architecture
