@@ -114,124 +114,75 @@ Primary phone number always appears first
 All values are unique
 
 Only secondary IDs appear in secondaryContactIds
+```
+
+Demo API Checking on Postman all Edge Cases->
+```
+1️⃣ New Customer (No Existing Contact)
+<img width="898" height="885" alt="image" src="https://github.com/user-attachments/assets/6243ad78-c3b3-4cc1-b89e-cd1b62d34f13" />
 
 ```
 
-🧪 Curl Test Examples
 ```
-1️⃣ New Customer
-curl -X POST https://bitespeed-identity-reconciliation-dv9a.onrender.com/identify \
--H "Content-Type: application/json" \
--d '{"email":"doc@hillvalley.edu","phoneNumber":"123456"}'
-`
-
-✔ Creates new primary contact
-✔ secondaryContactIds = []
-
-``
-2️⃣ Same Phone, New Email
-
-curl -X POST https://bitespeed-identity-reconciliation-dv9a.onrender.com/identify \
--H "Content-Type: application/json" \
--d '{"email":"mcfly@hillvalley.edu","phoneNumber":"123456"}'
-
-``
-
-
-
-✔ Creates secondary contact
-✔ Links to existing primary
-
-`
-3️⃣ Same Email, New Phone
-curl -X POST https://bitespeed-identity-reconciliation-dv9a.onrender.com/identify \
--H "Content-Type: application/json" \
--d '{"email":"doc@hillvalley.edu","phoneNumber":"999999"}'
-
-`
-
-✔ Creates secondary contact
-✔ Phone list updated
-
-`
-4️⃣ Only Phone Provided
-curl -X POST https://bitespeed-identity-reconciliation-dv9a.onrender.com/identify \
--H "Content-Type: application/json" \
--d '{"phoneNumber":"123456"}'
-
-`
-
-✔ Returns consolidated identity
-✔ No new record created
-
-`
-5️⃣ Only Email Provided
-curl -X POST https://bitespeed-identity-reconciliation-dv9a.onrender.com/identify \
--H "Content-Type: application/json" \
--d '{"email":"doc@hillvalley.edu"}'
-
-`
-
-✔ Returns consolidated identity
-✔ No new record created
-
-`
-🧠 Edge Case Handling
-🔹 1. No Existing Contact
-
-Creates new primary contact.
-
-🔹 2. Same Exact Data Again
-
-No duplicate record created.
-
-🔹 3. Same Phone + New Email
-
-Creates secondary linked to primary.
-
-🔹 4. Same Email + New Phone
-
-Creates secondary linked to primary.
-
-🔹 5. Multiple Secondary Contacts
-
-All linked to same primary. Unique response values.
-
-🔹 6. Merge Two Existing Primaries (Critical Case)
-
-If:
-
-Email matches one primary
-
-Phone matches another
-
-Then:
-
-Oldest remains primary
-
-Newer primary becomes secondary
-
-linkedId updated
-
-Full identity consolidated
-
-🔹 7. Email Null, Phone Provided
-
-Handled correctly.
-
-🔹 8. Phone Null, Email Provided
-
-Handled correctly.
-
-🔹 9. Duplicate Prevention
-
-Emails and phones are always unique.
-
-🔹 10. Order Guarantee
-
-Primary email & phone always appear first.
+2️⃣ Same Exact Data Again
+<img width="882" height="868" alt="image" src="https://github.com/user-attachments/assets/b537bc48-ee4c-44e6-81b6-f5f3ae1c41c7" />
 
 ```
+
+```
+3️⃣ Same Phone, New Email
+<img width="877" height="877" alt="image" src="https://github.com/user-attachments/assets/e077a245-d744-4e41-806e-c2be9943cafa" />
+```
+
+```
+4️⃣ Same Email, New Phone
+<img width="894" height="874" alt="image" src="https://github.com/user-attachments/assets/c8982bd8-e440-428a-a041-922bc2e95574" />
+
+```
+
+```
+5️⃣ Only Phone Provided
+<img width="882" height="866" alt="image" src="https://github.com/user-attachments/assets/f068e32e-17b8-4f02-a1ce-1659dae2923e" />
+```
+
+```
+6️⃣ Only Email Provided
+<img width="876" height="868" alt="image" src="https://github.com/user-attachments/assets/b43cc502-574b-4b7a-8491-bb924acc301f" />
+
+```
+
+```
+7️⃣ Merge Two Existing Primaries
+Step 1 – Create First Primary
+<img width="882" height="875" alt="image" src="https://github.com/user-attachments/assets/0c3d4be2-f508-4523-a3b9-9a272a74da5d" />
+
+Step 2 – Create Second Primary
+<img width="880" height="870" alt="image" src="https://github.com/user-attachments/assets/d8bc5a26-a6ca-45ea-ae76-ceaced96f52d" />
+
+Step 3 – Linking Request
+<img width="885" height="876" alt="image" src="https://github.com/user-attachments/assets/8027c6f2-3b46-481e-b181-98bfa7c29d60" />
+```
+
+```
+8️⃣ Email Null, Phone Valid
+<img width="880" height="903" alt="image" src="https://github.com/user-attachments/assets/ed9a715c-0eb9-4ffe-ba32-b171d9818213" />
+```
+
+```
+9️⃣ Phone Null, Email Valid
+<img width="881" height="871" alt="image" src="https://github.com/user-attachments/assets/bc7e89ec-a326-49e4-8d2d-b747b5032d01" />
+```
+
+```
+🔟 Completely New Phone Only
+<img width="876" height="869" alt="image" src="https://github.com/user-attachments/assets/888a80ac-99ef-4b00-ae1a-fadec5cead28" />
+```
+
+```
+1️⃣1️⃣ Completely New Email Only
+<img width="879" height="870" alt="image" src="https://github.com/user-attachments/assets/19ceef56-7908-4b5e-9f49-5958df2abaaa" />
+```
+
 
 ```
 🏗 Architecture
